@@ -1,7 +1,9 @@
-import 'package:chips_choice/chips_choice.dart';
 import 'package:flutter/material.dart';
-import 'package:news_app/Api-Manegar.dart';
+import 'package:news_app/catigorie-model.dart';
+import 'package:news_app/catigories-tap.dart';
 import 'package:news_app/catigories.dart';
+import 'package:news_app/drawer-widget.dart';
+import 'package:news_app/search-tat.dart';
 
 class HomePage extends StatefulWidget {
   static const String routeName = 'HomePage';
@@ -22,9 +24,23 @@ class _HomePageState extends State<HomePage> {
           image: DecorationImage(
               image: AssetImage("assets/images/splash-bg.png"))),
       child: Scaffold(
-        drawer: Drawer(),
+        drawer: DrawerWidget(
+          callBack: onDrawerClicked,
+        ),
         backgroundColor: Colors.transparent,
         appBar: AppBar(
+          actions: [
+            catigorieModel == null
+                ? SizedBox()
+                : IconButton(
+                    onPressed: () {
+                      showSearch(context: context, delegate: SearchTab());
+                    },
+                    icon: Icon(
+                      Icons.search_rounded,
+                      size: 30,
+                    ))
+          ],
           toolbarHeight: 93,
           iconTheme: IconThemeData(
             color: Colors.white,
@@ -45,12 +61,28 @@ class _HomePageState extends State<HomePage> {
             bottomLeft: Radius.circular(25),
           )),
         ),
-        body: Column(
-          children: [
-            Categories(),
-          ],
-        ),
+        body: catigorieModel == null
+            ? CatigoriesTap(
+                onClick: onCatigoriesClick,
+              )
+            : Categories(
+                id: catigorieModel!.id,
+              ),
       ),
     );
+  }
+
+  CatigorieModel? catigorieModel = null;
+  onCatigoriesClick(cat) {
+    catigorieModel = cat;
+    setState(() {});
+  }
+
+  onDrawerClicked(id) {
+    if (id == DrawerWidget.CATEGORY_ID) {
+      catigorieModel = null;
+      Navigator.pop(context);
+    } else if (id == DrawerWidget.Sittings_ID) {}
+    setState(() {});
   }
 }

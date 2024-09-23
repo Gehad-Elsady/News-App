@@ -39,6 +39,11 @@ dependencies:
   chips_choice: ^3.0.1
   google_fonts: ^6.2.1
   http: ^1.2.2
+  bloc: ^8.1.4
+  flutter_bloc: ^8.1.6
+  loader_overlay: ^4.0.2+1
+  cached_network_image: ^3.4.1
+  url_launcher: ^6.3.0
 
 dev_dependencies:
   flutter_test:
