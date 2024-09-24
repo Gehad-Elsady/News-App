@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/blocs/cubit.dart';
 import 'package:news_app/blocs/states.dart';
-import 'package:news_app/news-item.dart';
+import 'package:news_app/Widgets/news-item.dart';
 
 class SearchTab extends SearchDelegate {
   @override

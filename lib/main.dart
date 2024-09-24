@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app/Home.dart';
+import 'package:news_app/Screens/Home.dart';
 import 'package:news_app/blocs/observer.dart';
-import 'package:news_app/news-detalies.dart';
+import 'package:news_app/Screens/news-detalies.dart';
+import 'package:news_app/theme/AppTheme.dart';
 
 void main() {
   Bloc.observer = MyBlocObserver();
@@ -17,6 +18,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        theme: AppTheme.lightTheme,
+        themeMode: ThemeMode.light,
         debugShowCheckedModeBanner: false,
         initialRoute: HomePage.routeName,
         routes: {
