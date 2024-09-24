@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/catigorie-model.dart';
-import 'package:news_app/catigories-tap.dart';
-import 'package:news_app/catigories.dart';
-import 'package:news_app/drawer-widget.dart';
-import 'package:news_app/search-tat.dart';
+import 'package:news_app/Models/catigorie-model.dart';
+import 'package:news_app/Widgets/catigories-tap.dart';
+import 'package:news_app/Screens/catigories.dart';
+import 'package:news_app/Widgets/drawer-widget.dart';
+import 'package:news_app/Screens/search-tat.dart';
+import 'package:news_app/theme/app-color.dart';
 
 class HomePage extends StatefulWidget {
   static const String routeName = 'HomePage';
@@ -20,14 +21,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColor.white,
           image: DecorationImage(
               image: AssetImage("assets/images/splash-bg.png"))),
       child: Scaffold(
         drawer: DrawerWidget(
           callBack: onDrawerClicked,
         ),
-        backgroundColor: Colors.transparent,
         appBar: AppBar(
           actions: [
             catigorieModel == null
@@ -41,25 +41,9 @@ class _HomePageState extends State<HomePage> {
                       size: 30,
                     ))
           ],
-          toolbarHeight: 93,
-          iconTheme: IconThemeData(
-            color: Colors.white,
-          ),
           title: Text(
             'News App',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 25,
-              fontWeight: FontWeight.bold,
-            ),
           ),
-          centerTitle: true,
-          backgroundColor: Colors.green,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-            bottomRight: Radius.circular(25),
-            bottomLeft: Radius.circular(25),
-          )),
         ),
         body: catigorieModel == null
             ? CatigoriesTap(

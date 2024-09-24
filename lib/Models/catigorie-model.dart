@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/app-color.dart';
+import 'package:news_app/theme/app-color.dart';
 
 class CatigorieModel {
   String name;

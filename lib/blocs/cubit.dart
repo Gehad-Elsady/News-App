@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
-import 'package:news_app/NewsDataResponse.dart';
-import 'package:news_app/SourcesResponse.dart';
+import 'package:news_app/Models/NewsDataResponse.dart';
+import 'package:news_app/Models/SourcesResponse.dart';
 import 'package:news_app/blocs/states.dart';
-import 'package:news_app/const.dart';
+import 'package:news_app/const/const.dart';
 
 class HomeCubit extends Cubit<HomeStates> {
   HomeCubit() : super(HomeInitState());
@@ -39,28 +39,37 @@ class HomeCubit extends Cubit<HomeStates> {
     }
   }
 
-  Future<void> getNewsData({String? sourceID, String? query}) async {
+  Future<void> getNewsData(
+      {String? sourceID, String? query, int? pageSize, int? page}) async {
     try {
       emit(HomeGetNewsDataLoadingState());
 
       Uri url = Uri.https(
         Constants.baseUrl,
         "/v2/everything",
-        {"sources": sourceID, "q": query},
+        {
+          "sources": sourceID,
+          "q": query,
+          "pageSize": pageSize.toString(),
+          "page": page.toString()
+        },
       );
+
       http.Response response = await http.get(url, headers: {
         "x-api-key": Constants.apiKey,
       });
-
-      var json = jsonDecode(response.body);
 
       if (response.statusCode != 200) {
         emit(HomeGetNewsDataErrorState());
         return;
       }
+
+      var json = jsonDecode(response.body);
       newsDataResponse = NewsDataResponse.fromJson(json);
       emit(HomeGetNewsDataSuccessState());
     } catch (e) {
+      // Log error for better debugging
+      print("Error fetching news data: $e");
       emit(HomeGetNewsDataErrorState());
     }
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/catigorie-model.dart';
-import 'package:news_app/catigories-items.dart';
+import 'package:news_app/Models/catigorie-model.dart';
+import 'package:news_app/Widgets/catigories-items.dart';
 
 class CatigoriesTap extends StatelessWidget {
   Function onClick;

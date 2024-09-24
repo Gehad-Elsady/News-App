@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/SourcesResponse.dart';
+import 'package:news_app/Models/SourcesResponse.dart';
 
 // ignore: must_be_immutable
 class TabItems extends StatelessWidget {

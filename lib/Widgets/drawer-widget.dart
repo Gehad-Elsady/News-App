@@ -1,6 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:news_app/theme/app-color.dart';
 
 class DrawerWidget extends StatelessWidget {
   Function callBack;
@@ -12,14 +13,14 @@ class DrawerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: AppColor.white,
       width: MediaQuery.of(context).size.width * 0.7,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             height: 200,
-            color: Colors.green,
+            color: AppColor.appBar,
             child: Center(
               child: Text(
                 'News App',
@@ -31,13 +32,19 @@ class DrawerWidget extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 20,),
-
+          SizedBox(
+            height: 20,
+          ),
           GestureDetector(
             child: Row(
               children: [
-                Icon(Icons.list),
-                SizedBox(width: 7,),
+                Icon(
+                  Icons.list,
+                  color: Colors.black,
+                ),
+                SizedBox(
+                  width: 7,
+                ),
                 Text(
                   'Categories',
                   style: TextStyle(
@@ -58,8 +65,10 @@ class DrawerWidget extends StatelessWidget {
           GestureDetector(
             child: Row(
               children: [
-                Icon(Icons.settings),
-                SizedBox(width: 7,),
+                Icon(Icons.settings, color: Colors.black),
+                SizedBox(
+                  width: 7,
+                ),
                 Text(
                   'Settings',
                   style: TextStyle(

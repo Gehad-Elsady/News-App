@@ -15,4 +15,5 @@ class AppColor {
   static const Color technologyColor = Color(0xFF4A1CC9);
   static const Color scaffold = Colors.transparent;
   static const Color appBar = Colors.green;
+  static const Color white = Colors.white;
 }
