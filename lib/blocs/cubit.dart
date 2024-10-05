@@ -7,9 +7,11 @@ import 'package:news_app/Models/NewsDataResponse.dart';
 import 'package:news_app/Models/SourcesResponse.dart';
 import 'package:news_app/blocs/states.dart';
 import 'package:news_app/const/const.dart';
+import 'package:news_app/repo/repo.dart';
 
 class HomeCubit extends Cubit<HomeStates> {
-  HomeCubit() : super(HomeInitState());
+  HomeRepo repo;
+  HomeCubit(this.repo) : super(HomeInitState());
 
   static HomeCubit get(context) => BlocProvider.of(context);
   int selectedTabIndex = 0;
@@ -24,13 +26,7 @@ class HomeCubit extends Cubit<HomeStates> {
   Future<void> getSources(String id) async {
     try {
       emit(HomeGetSourcesLoadingState());
-      Uri url = Uri.https("newsapi.org", "/v2/top-headlines/sources",
-          {"apiKey": Constants.apiKey, "category": id});
-      http.Response response = await http.get(url);
-
-      var json = jsonDecode(response.body);
-
-      sourcesResponse = SourcesResponse.fromJson(json);
+      sourcesResponse = await repo.getSources(id);
       emit(HomeGetSourcesSuccessState());
       getNewsData(
           sourceID: sourcesResponse?.sources?[selectedTabIndex].id ?? "");
@@ -43,29 +39,8 @@ class HomeCubit extends Cubit<HomeStates> {
       {String? sourceID, String? query, int? pageSize, int? page}) async {
     try {
       emit(HomeGetNewsDataLoadingState());
-
-      Uri url = Uri.https(
-        Constants.baseUrl,
-        "/v2/everything",
-        {
-          "sources": sourceID,
-          "q": query,
-          "pageSize": pageSize.toString(),
-          "page": page.toString()
-        },
-      );
-
-      http.Response response = await http.get(url, headers: {
-        "x-api-key": Constants.apiKey,
-      });
-
-      if (response.statusCode != 200) {
-        emit(HomeGetNewsDataErrorState());
-        return;
-      }
-
-      var json = jsonDecode(response.body);
-      newsDataResponse = NewsDataResponse.fromJson(json);
+      newsDataResponse = await repo.getNewsData(
+          sourceID: sourceID, query: query, pageSize: pageSize, page: page);
       emit(HomeGetNewsDataSuccessState());
     } catch (e) {
       // Log error for better debugging

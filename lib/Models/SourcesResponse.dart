@@ -4,14 +4,23 @@ class SourcesResponse {
 
   SourcesResponse({this.status, this.sources});
 
-  SourcesResponse.fromJson(Map<String, dynamic> json) {
+  SourcesResponse.fromJson(Map<dynamic, dynamic> json) {
     status = json['status'];
     if (json['sources'] != null) {
       sources = <Sources>[];
       json['sources'].forEach((v) {
-        sources!.add(new Sources.fromJson(v));
+        sources!.add(Sources.fromJson(v));
       });
     }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    if (sources != null) {
+      data['sources'] = sources!.map((v) => v.toJson()).toList();
+    }
+    return data;
   }
 }
 
@@ -33,7 +42,7 @@ class Sources {
       this.language,
       this.country});
 
-  Sources.fromJson(Map<String, dynamic> json) {
+  Sources.fromJson(Map<dynamic, dynamic> json) {
     id = json['id'];
     name = json['name'];
     description = json['description'];
@@ -41,5 +50,17 @@ class Sources {
     category = json['category'];
     language = json['language'];
     country = json['country'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['description'] = description;
+    data['url'] = url;
+    data['category'] = category;
+    data['language'] = language;
+    data['country'] = country;
+    return data;
   }
 }

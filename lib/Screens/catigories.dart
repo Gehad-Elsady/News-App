@@ -7,6 +7,9 @@ import 'package:news_app/blocs/cubit.dart';
 import 'package:news_app/blocs/states.dart';
 import 'package:news_app/Widgets/news-item.dart';
 import 'package:news_app/Widgets/tab-item.dart';
+import 'package:news_app/main.dart';
+import 'package:news_app/repo/home_local_ds_impl.dart';
+import 'package:news_app/repo/home_remote_ds_impl.dart';
 
 class Categories extends StatefulWidget {
   final String id;
@@ -52,7 +55,9 @@ class _CategoriesState extends State<Categories> {
   Widget build(BuildContext context) {
     return LoaderOverlay(
       child: BlocProvider(
-        create: (context) => HomeCubit()..getSources(widget.id),
+        create: (context) =>
+            HomeCubit(isConnectdet ? HomeRemoteDsImpl() : HomeLocalDsImpl())
+              ..getSources(widget.id),
         child: BlocConsumer<HomeCubit, HomeStates>(
           listener: (context, state) {
             if (state is HomeGetSourcesLoadingState ||

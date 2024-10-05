@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:news_app/Models/NewsDataResponse.dart';
 import 'package:news_app/Screens/news-detalies.dart';
 
@@ -11,7 +12,7 @@ class NewsItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
-        onTap: () {
+        onTap: () async {
           Navigator.pushNamed(context, NewsDetails.routeName,
               arguments: articles);
         },
