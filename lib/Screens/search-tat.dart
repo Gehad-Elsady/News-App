@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/blocs/cubit.dart';
 import 'package:news_app/blocs/states.dart';
 import 'package:news_app/Widgets/news-item.dart';
+import 'package:news_app/repo/home_remote_ds_impl.dart';
 
 class SearchTab extends SearchDelegate {
   @override
@@ -36,7 +37,8 @@ class SearchTab extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeCubit()..getNewsData(query: query),
+      create: (context) =>
+          HomeCubit(HomeRemoteDsImpl())..getNewsData(query: query),
       child: BlocConsumer<HomeCubit, HomeStates>(
         builder: (BuildContext context, HomeStates state) {
           if (state is HomeGetNewsDataSuccessState) {
@@ -70,7 +72,8 @@ class SearchTab extends SearchDelegate {
     }
 
     return BlocProvider(
-      create: (context) => HomeCubit()..getNewsData(query: query),
+      create: (context) =>
+          HomeCubit(HomeRemoteDsImpl())..getNewsData(query: query),
       child: BlocConsumer<HomeCubit, HomeStates>(
         builder: (BuildContext context, HomeStates state) {
           if (state is HomeGetNewsDataSuccessState) {
